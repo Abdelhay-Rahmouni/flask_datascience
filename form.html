@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prédiction Prix - Rabat</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+  </head>
+  <body>
+    <div class="bg-hero"></div>
+    <div class="bg-overlay"></div>
+    <div class="app">
+      <div class="sidebar card">
+        <!-- icons placeholder -->
+        <div style="height:10px"></div>
+      </div>
+      <div class="main">
+        <div class="header">
+          <div>
+            <div class="title">Prédiction du Prix Immobilier — Rabat</div>
+            <div class="meta">Entrez les caractéristiques pour estimer le prix</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <form action="/predict" method="post">
+            <div class="form-grid">
+              <div class="field">
+                <label>Surface (m²)</label>
+                <input type="number" step="0.1" name="surface" required>
+              </div>
+              <div class="field">
+                <label>Chambres</label>
+                <input type="number" name="chambres" required>
+              </div>
+              <div class="field">
+                <label>Quartier</label>
+                <select name="quartier" required>
+                  <option value="" disabled selected>-- Choisissez --</option>
+                  <option>Agdal</option>
+                  <option>Hassan</option>
+                  <option>Yacoub Al Mansour</option>
+                  <option>Souissi</option>
+                  <option>Hay Riad</option>
+                  <option>Tabriquet</option>
+                  <option>Agdal-Olaya</option>
+                  <option>Rmeilech</option>
+                  <option>Oulja</option>
+                  <option>Rabat Centre</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Type de bien</label>
+                <select name="property_type">
+                  <option value="" selected>-- Type --</option>
+                  <option>Appartement</option>
+                  <option>Villa</option>
+                  <option>Studio</option>
+                  <option>Duplex</option>
+                  <option>Riad</option>
+                  <option>Maison</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Étage (stories)</label>
+                <input type="number" name="etage" placeholder="ex: 2">
+              </div>
+              <div class="field">
+                <label>Parking (nombre)</label>
+                <input type="number" name="parking" placeholder="ex: 1">
+              </div>
+              <!-- Removed duplicate area and "Autres" fields as requested -->
+            </div>
+            <div style="margin-top:14px">
+              <button class="btn" type="submit">Prédire le prix</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="card predict-card">
+          <div>
+            <div class="meta">Prix estimé</div>
+            <div class="prediction">{% if prediction is defined %}{{ prediction }} MAD{% else %}—{% endif %}</div>
+          </div>
+          <div class="footer">Résultat calculé avec le modèle entraîné localement.</div>
+        </div>
+
+        <footer class="page-footer">
+          <p>Projet pédagogique — Flask + Machine Learning • Prédiction immobilière Marocaine<br>© Rahmouni Abdelhay</p>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Résultat - Prédiction</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+  </head>
+  <body>
+    <div class="bg-hero"></div>
+    <div class="bg-overlay"></div>
+    <div class="app">
+      <div class="sidebar card"></div>
+      <div class="main">
+        <div class="header">
+          <div>
+            <div class="title">Résultat de la prédiction</div>
+            <div class="meta">Résumé de la prédiction et paramètres du modèle</div>
+          </div>
+        </div>
+
+        <div class="card fiche">
+          <div class="info-row">
+            <div>
+              <div class="meta">Données:</div>
+              <div class="info-val">{{ metrics.n_samples if metrics.n_samples is defined else 'N/A' }}</div>
+            </div>
+            <div>
+              <div class="meta">Facteurs:</div>
+              <div class="info-val">{{ metrics.n_features if metrics.n_features is defined else 'N/A' }}</div>
+            </div>
+            <div>
+              <div class="meta">Algorithme:</div>
+              <div class="info-val">RandomForest</div>
+            </div>
+            <div>
+              <div class="meta">Précision (R²):</div>
+              <div class="info-val">{{ '%.3f'|format(metrics.r2) if metrics.r2 is defined else 'N/A' }}</div>
+            </div>
+          </div>
+
+          <div class="price-large">{{ display.prix_millions }}</div>
+          <div class="price-sub">{{ display.prix_full }}</div>
+
+          <div class="divider"></div>
+
+          <div class="entry-list">
+            {% for k,v in input_items.items() %}
+              <div class="entry"><span class="entry-key">{{ k }}</span><span class="entry-val">{{ v }}</span></div>
+            {% endfor %}
+          </div>
+
+          <div class="warning">⚠️ Estimation basée sur le modèle historique. Consultez un expert.</div>
+
+          <div class="rf-params">
+            <h4>Paramètres RandomForest</h4>
+            <ul>
+              {% for k,v in rf_params.items() %}
+                <li><strong>{{ k }}:</strong> {{ v }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+
+        <div class="card footer">
+          <a href="/">← Retour au formulaire</a>
+        </div>
+
+        <footer class="page-footer">
+          <p>Projet pédagogique — Flask + Machine Learning • Prédiction immobilière Marocaine<br>© Rahmouni Abdelhay</p>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>
